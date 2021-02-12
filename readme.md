@@ -1,5 +1,5 @@
 ### chat app made using hasura.io and plain JS react
-##first go into hasura and do a docker-compose up -d
+##first go into hasura and do a docker-compose up -d (have docker and docker-compose installed.)
 
 ##then, go into chat-migrations and install hasura-cli
 https://hasura.io/docs/1.0/graphql/core/hasura-cli/index.html#installation
