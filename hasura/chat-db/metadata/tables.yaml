@@ -1,0 +1,28 @@
+- table:
+    schema: public
+    name: messages
+  object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: receiver
+  - name: userBySender
+    using:
+      foreign_key_constraint_on: sender
+- table:
+    schema: public
+    name: users
+  array_relationships:
+  - name: messages
+    using:
+      foreign_key_constraint_on:
+        column: receiver
+        table:
+          schema: public
+          name: messages
+  - name: messagesBySender
+    using:
+      foreign_key_constraint_on:
+        column: sender
+        table:
+          schema: public
+          name: messages
