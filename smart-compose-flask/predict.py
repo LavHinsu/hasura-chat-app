@@ -4,8 +4,10 @@ import json
 import numpy as np
 import pandas as pd
 from flask import Flask, render_template, request, redirect, url_for, session
-
+from flask_cors import CORS, cross_origin
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 enc_model = keras.models.load_model('models/encoder-model-final.h5', compile=False)
 inf_model = keras.models.load_model('models/inf-model-final.h5', compile=False)
@@ -74,7 +76,9 @@ def fin_fxn(ip_txt):
     return output
 
 
+
 @app.route('/main', methods=["POST", "GET"])
+@cross_origin()
 def data_fetch():
     if request.method == "POST":
         text_dat = request.json["smartm"]
