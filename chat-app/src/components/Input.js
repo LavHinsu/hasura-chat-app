@@ -1,26 +1,40 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+const axios = require("axios");
 export default function Input({ clickProps, sender, receiver }) {
   const [answerInput, setAnswerInput] = useState("");
   const [predictiveText, setPredictiveText] = useState("");
 
-
-  async function getPredictedText(input){
-    // axios api call here
-    // set state here
-  }
+  useEffect(() => {
+    async function getPredictedText(input) {
+      await axios({
+        method: "post",
+        url: "http://localhost:5000/main",
+        data: {
+          smartm: input,
+        },
+      })
+        .then((res) => {
+          setPredictiveText(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    getPredictedText(answerInput);
+  }, [answerInput]);
 
   return (
     <>
-      <div></div>
+      <div>
+        <span>text suggestion: {predictiveText}</span>
+      </div>
       <div className="Chat_compose">
         <input
           className="Chat_compose_input"
           type="text"
           placeholder="Type a message..."
           value={answerInput}
-          onChange={(e) => {
-            getPredictedText(e)
+          onChange={async (e) => {
             setAnswerInput(e.target.value);
           }}
         />

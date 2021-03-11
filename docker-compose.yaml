@@ -30,11 +30,5 @@ services:
     ports:
       - 3002:3002
     restart: always
-  predictive:
-    build:
-      context: ./smart-compose-flask
-    ports:
-      - 5000:5000
-    restart: always
 volumes:
   db_data:
