@@ -1,18 +1,18 @@
-version: '3.6'
+version: "3.6"
 services:
   postgres:
     image: postgres:12
     restart: always
     volumes:
-    - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgrespassword
   graphql-engine:
     image: hasura/graphql-engine:v1.3.3
     ports:
-    - "8080:8080"
+      - "8080:8080"
     depends_on:
-    - "postgres"
+      - "postgres"
     restart: always
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
@@ -23,6 +23,18 @@ services:
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       ## uncomment next line to set an admin secret
       # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+  frontend:
+    build:
+      context: ./chat-app
+      target: staging
+    ports:
+      - 3002:3002
+    restart: always
+  predictive:
+    build:
+      context: ./smart-compose-flask
+    ports:
+      - 5000:5000
+    restart: always
 volumes:
   db_data:
-

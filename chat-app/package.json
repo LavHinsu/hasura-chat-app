@@ -14,8 +14,9 @@
     "subscriptions-transport-ws": "^0.9.16"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3002 react-scripts start",
     "build": "react-scripts build",
+    "build:stage": "npm run-script build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
